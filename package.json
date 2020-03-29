@@ -15,6 +15,7 @@
     "@expo/vector-icons": "~10.0.0",
     "@react-native-community/masked-view": "0.1.5",
     "@react-navigation/bottom-tabs": "^5.0.0",
+    "@react-navigation/drawer": "^5.3.4",
     "@react-navigation/native": "^5.0.0",
     "@react-navigation/stack": "^5.0.0",
     "@react-navigation/web": "~1.0.0-alpha.9",
@@ -22,14 +23,18 @@
     "expo-asset": "~8.0.0",
     "expo-constants": "~8.0.0",
     "expo-font": "~8.0.0",
+    "expo-linear-gradient": "~8.0.0",
     "expo-web-browser": "~8.0.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-gesture-handler": "~1.5.0",
+    "react-native-reanimated": "^1.7.1",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "victory-native": "^34.1.0",
+    "react-native-svg": "9.13.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

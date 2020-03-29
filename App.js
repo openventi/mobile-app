@@ -2,14 +2,15 @@ import * as React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import HomeScreen from './screens/HomeScreen';
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const INITIAL_ROUTE_NAME = 'Visualización de datos';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
@@ -28,7 +29,7 @@ export default function App(props) {
 
         // Load fonts
         await Font.loadAsync({
-          ...Ionicons.font,
+          ...FontAwesome5.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         });
       } catch (e) {
@@ -50,9 +51,9 @@ export default function App(props) {
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
-            <Stack.Screen name="Root" component={BottomTabNavigator} />
-          </Stack.Navigator>
+          <Drawer.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+            <Drawer.Screen name={INITIAL_ROUTE_NAME} component={HomeScreen} />
+          </Drawer.Navigator>
         </NavigationContainer>
       </View>
     );
@@ -61,7 +62,7 @@ export default function App(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
+    flex: 1,
   },
 });
