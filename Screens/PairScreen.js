@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import styles from '../Screens/Styles/PairScreenStyle';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import { SCREENS } from '../constants';
 
 export default class PairScreen extends Component {
 	constructor(props) {
@@ -22,6 +23,8 @@ export default class PairScreen extends Component {
 	handleClick() {
 		this.setState(state => ({loading: true}));
 		this.refs.FourthDigit.blur();
+		// TODO: handle real connection to device and then change screen.
+    this.props.navigation.navigate(SCREENS.monitor);
 	}
 
 	HandleFirstDigit(value) {
