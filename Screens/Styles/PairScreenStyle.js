@@ -21,20 +21,20 @@ export default StyleSheet.create({
 		paddingTop: 10,
 		paddingBottom: 20,
 		resizeMode: 'repeat',
-		width:'100%',
-		height:undefined
+		width: '100%',
+		height: undefined
 	},
 	logoImage: {
 		width: '40%',
 		height: undefined,
 		resizeMode: 'contain',
-		flex:1,
+		flex: 1,
 	},
 	pairCodeInput: {
 		color: '#FFFFFF',
 		fontSize: 30,
 		fontWeight: 'bold',
-		fontFamily: 'Roboto',
+		fontFamily: 'System',
 		borderColor: '#16AB1F',
 		borderWidth: 1,
 		borderRadius: 4,
@@ -42,7 +42,7 @@ export default StyleSheet.create({
 		borderBottomWidth: 4,
 		width: '22%',
 		height: 53,
-		textAlign: 'center', 
+		textAlign: 'center',
 	},
 	connectImage: {
 		width: 28,
@@ -50,8 +50,8 @@ export default StyleSheet.create({
 		marginBottom: 10,
 	},
 	pairStatusContainer: {
-		paddingBottom:20,
-		paddingTop:20,
+		paddingBottom: 20,
+		paddingTop: 20,
 		flex: 2,
 		backgroundColor: '#0F1416',
 		width: '100%',
@@ -60,33 +60,33 @@ export default StyleSheet.create({
 		borderBottomLeftRadius: 0,
 		borderBottomRightRadius: 0,
 	},
-	codeFieldsContainer : {
+	codeFieldsContainer: {
 		flexDirection: 'row',
 		flex: 1,
 		width: '80%',
 		justifyContent: 'space-around',
-		paddingTop:20,
-		paddingBottom:20,
+		paddingTop: 20,
+		paddingBottom: 20,
 	},
-	connectMessage : {
-		alignItems : 'center',
-		textAlign : 'center',
-		fontFamily : 'Roboto',
-		color : '#FFFFFF',
-		width : '50%',
-		fontSize : 16,
+	connectMessage: {
+		alignItems: 'center',
+		textAlign: 'center',
+		fontFamily: 'System',
+		color: '#FFFFFF',
+		width: '50%',
+		fontSize: 16,
 	},
-	ventilatorName : {
-		color : '#20AFFF',
+	ventilatorName: {
+		color: '#20AFFF',
 	},
 	bottomSpacer: {
 		flex: 1,
 	},
 	buttonContainer: {
-		flex:2,
+		flex: 2,
 		paddingTop: 30,
 		paddingBottom: 20,
-		width: '80%', 
+		width: '80%',
 	},
 	submitButton: {
 		width: '100%',
