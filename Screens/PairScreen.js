@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyboard, Animated, Easing } from 'react-native';
 import styles from '../Screens/Styles/PairScreenStyle';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import { SCREENS } from '../constants';
 
 const DismissKeyboard = ({ children }) => (
 	<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -126,6 +127,10 @@ export default class PairScreen extends Component {
 		this.refs.SecondDigit.clear();
 		this.refs.ThirdDigit.clear();
 		this.refs.FourthDigit.clear();
+
+		this.refs.FourthDigit.blur();
+		// TODO: handle real connection to device and then change screen.
+    this.props.navigation.navigate(SCREENS.monitor);
 	}
 
 	HandleFirstDigit(value) {
