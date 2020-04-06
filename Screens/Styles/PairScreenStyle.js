@@ -100,5 +100,20 @@ export default StyleSheet.create({
 		lineHeight: 54,
 		fontSize: 19,
 		fontWeight: 'bold',
+	},
+	dotsContainer: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	loadingDot: {
+		backgroundColor: '#FFFFFF',
+		height: 10,
+		width: 10,
+		margin: 10,
+		borderRadius: 5,
 	}
 });
