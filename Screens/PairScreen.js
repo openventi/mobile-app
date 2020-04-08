@@ -10,6 +10,7 @@ import {
   Animated,
   Easing,
 } from 'react-native';
+import Orientation from 'react-native-orientation';
 import styles from '../Screens/Styles/PairScreenStyle';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { SCREENS } from '../constants';
@@ -42,6 +43,11 @@ export default class PairScreen extends Component {
   }
 
   componentDidMount() {
+    this.props.navigation.addListener('focus', async () => {
+      Orientation.lockToPortrait();
+    });
+
+    Orientation.lockToPortrait();
     this.scaleDots();
   }
 
