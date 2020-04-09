@@ -9,7 +9,10 @@ import { useFocusEffect } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 import BottomNav from '../components/BottomNav';
 
-const MAX_ARRAY_SIZE = 25;
+const GRAPH_HEIGHT = 200;
+const GRAPH_MIN_NUM_POINTS = 10;
+const GRAPH_MAX_NUM_POINTS = 150;
+const MAX_ARRAY_SIZE = GRAPH_MAX_NUM_POINTS;
 
 const emptyInitialObject = {
   rr: [],
@@ -45,7 +48,7 @@ export default function DeviceScreen({ navigation }) {
   const [socket, setSocket] = useState({});
   const [readyState, setReadyState] = useState(0);
   const [graphValues, setGraphValues] = useState({ ...emptyInitialObject });
-  const [graphHeight, setGraphHeight] = useState(200);
+  const [graphNumPoints, setGraphNumPoints] = useState(25);
   const [graphWidth, setGraphWidth] = useState(450);
   // Use aux state to get information from ws
   const delayedSetGraphValues = useRef(
@@ -96,14 +99,24 @@ export default function DeviceScreen({ navigation }) {
     }
   }, [socket.readyState]);
 
+  function HandleLayoutEvent(event) {
+    var graphNewWidth = event.nativeEvent.layout.width - 20;
+    setGraphWidth(graphNewWidth);
+
+    var graphNewNumPoints = Math.round(graphNewWidth / 20);
+    if (graphNewNumPoints < GRAPH_MIN_NUM_POINTS) {
+      graphNewNumPoints = GRAPH_MIN_NUM_POINTS;
+    } else if (graphNewNumPoints > GRAPH_MAX_NUM_POINTS) {
+      graphNewNumPoints = GRAPH_MAX_NUM_POINTS;
+    }
+    setGraphNumPoints(graphNewNumPoints);
+  }
+
   return (
     <View
       style={DeviceScreenStyle.styles.container}
-      onLayout={(event) => setGraphWidth(event.nativeEvent.layout.width - 20)}>
-      <TopNav
-        title="Ventilador N98"
-        connected={readyState > 0 && readyState < 3}
-      />
+      onLayout={(event) => HandleLayoutEvent(event)}>
+      <TopNav title="Ventilador N98" connected={readyState > 0 && readyState < 3} />
       <View style={DeviceScreenStyle.summaryStyles.container}>
         {parametersArray.map((param) => (
           <View key={param.key}>
@@ -125,24 +138,20 @@ export default function DeviceScreen({ navigation }) {
         style={DeviceScreenStyle.scrollerStyles.container}
         contentContainerStyle={DeviceScreenStyle.scrollerStyles.contentContainer}>
         {parametersArray.map((param) => (
-          <VictoryChart key={param.key} height={graphHeight} width={graphWidth}>
+          <VictoryChart key={param.key} height={GRAPH_HEIGHT} width={graphWidth}>
             {graphValues[param.key].length > 1 && (
               <VictoryArea
                 style={{
                   data: { stroke: param.color.color, strokeWidth: 3, fillOpacity: 0 },
                 }}
-                data={graphValues[param.key]}
+                data={graphValues[param.key].slice(-graphNumPoints)}
               />
             )}
             <VictoryAxis dependentAxis />
           </VictoryChart>
         ))}
       </ScrollView>
-      <BottomNav
-        toggleDrawer={() => {
-          navigation.toggleDrawer();
-        }}
-      />
+      <BottomNav toggleDrawer={() => navigation.toggleDrawer()} />
     </View>
   );
 }
