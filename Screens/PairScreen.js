@@ -236,6 +236,8 @@ export default class PairScreen extends Component {
 								{ backgroundColor: '#16AB1F' } 
 								: { backgroundColor: 'transparent' }
 							]}
+							value={this.state.firstDigit}
+							onFocus= {() => this.setState({firstDigit : ''})}
 							onChangeText={(value) => this.HandleFirstDigit(value)}
 							keyboardType="numeric"
 							maxLength={1}
@@ -250,11 +252,19 @@ export default class PairScreen extends Component {
 								{ backgroundColor: '#16AB1F' } 
 								: { backgroundColor: 'transparent' }
 							]}
+							value={this.state.secondDigit}
+							onFocus= {() => this.setState({secondDigit : ''})}
 							onChangeText={(value) => this.HandleSecondDigit(value)}
 							keyboardType="numeric"
 							maxLength={1}
 							ref='SecondDigit'
 							editable={ this.state.loading ? false : true }
+							onKeyPress={({ nativeEvent }) => {
+								if (nativeEvent.key === 'Backspace' && this.state.secondDigit == "")
+								{
+									this.refs.FirstDigit.focus();
+								}
+							}}
 						/>
 						<TextInput
 							style={[
@@ -263,11 +273,19 @@ export default class PairScreen extends Component {
 								{ backgroundColor: '#16AB1F' } 
 								: { backgroundColor: 'transparent' }
 							]}
+							value={this.state.thirdDigit}
+							onFocus= {() => this.setState({thirdDigit : ''})}
 							onChangeText={this.HandleThirdDigit.bind(this)}
 							keyboardType="numeric"
 							maxLength={1}
 							ref='ThirdDigit'
 							editable={ this.state.loading ? false : true }
+							onKeyPress={({ nativeEvent }) => {
+								if (nativeEvent.key === 'Backspace' && this.state.thirdDigit == "")
+								{
+									this.refs.SecondDigit.focus();
+								}
+							}}
 						/>
 						<TextInput
 							style={[
@@ -276,11 +294,19 @@ export default class PairScreen extends Component {
 								{ backgroundColor: '#16AB1F' } 
 								: { backgroundColor: 'transparent' }
 							]}
+							value={this.state.fourthDigit}
+							onFocus= {() => this.setState({fourthDigit : ''})}
 							onChangeText={this.HandleFourthDigit.bind(this)}
 							keyboardType="numeric"
 							maxLength={1}
 							ref='FourthDigit'
 							editable={ this.state.loading ? false : true }
+							onKeyPress={({ nativeEvent }) => {
+								if (nativeEvent.key === 'Backspace' && this.state.fourthDigit == "")
+								{
+									this.refs.ThirdDigit.focus();
+								}
+							}}
 						/>
 					</View>
 					<View style={styles.buttonContainer}>
