@@ -6,6 +6,7 @@ import { VictoryChart, VictoryArea, VictoryAxis } from 'victory-native';
 import { throttle } from 'lodash';
 import DeviceScreenStyle from './Styles/DeviceScreenStyle';
 import { useFocusEffect } from '@react-navigation/native';
+import BottomNav from '../components/BottomNav';
 
 const MAX_ARRAY_SIZE = 10;
 const GRAPH_HEIGHT = 150;
@@ -89,9 +90,6 @@ export default function DeviceScreen({ navigation }) {
   return (
     <View style={DeviceScreenStyle.styles.container}>
       <TopNav
-        toggleDrawer={() => {
-          navigation.toggleDrawer();
-        }}
         title="Ventilador N98"
         connected={0 < readyState && readyState < 3}
       />
@@ -111,6 +109,11 @@ export default function DeviceScreen({ navigation }) {
           </VictoryChart>
         ))}
       </ScrollView>
+      <BottomNav
+        toggleDrawer={() => {
+          navigation.toggleDrawer();
+        }}
+      />
     </View>
   );
 }
