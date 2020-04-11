@@ -6,10 +6,10 @@ import { VictoryChart, VictoryArea, VictoryAxis } from 'victory-native';
 import { throttle } from 'lodash';
 import DeviceScreenStyle from './Styles/DeviceScreenStyle';
 import { useFocusEffect } from '@react-navigation/native';
+import Orientation from 'react-native-orientation';
 import BottomNav from '../components/BottomNav';
 
-const MAX_ARRAY_SIZE = 10;
-const GRAPH_HEIGHT = 150;
+const MAX_ARRAY_SIZE = 25;
 
 const emptyInitialObject = {
   rr: [],
@@ -40,10 +40,13 @@ const parametersArray = [
     color: DeviceScreenStyle.colors.red,
   },
 ];
+
 export default function DeviceScreen({ navigation }) {
   const [socket, setSocket] = useState({});
   const [readyState, setReadyState] = useState(0);
   const [graphValues, setGraphValues] = useState({ ...emptyInitialObject });
+  const [graphHeight, setGraphHeight] = useState(200);
+  const [graphWidth, setGraphWidth] = useState(450);
   // Use aux state to get information from ws
   const delayedSetGraphValues = useRef(
     throttle((data) => {
@@ -78,6 +81,12 @@ export default function DeviceScreen({ navigation }) {
       return () => {
         webSocket.close();
       };
+    }, [delayedSetGraphValues]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      Orientation.unlockAllOrientations();
     }, []),
   );
 
@@ -88,23 +97,43 @@ export default function DeviceScreen({ navigation }) {
   }, [socket.readyState]);
 
   return (
-    <View style={DeviceScreenStyle.styles.container}>
+    <View
+      style={DeviceScreenStyle.styles.container}
+      onLayout={(event) => setGraphWidth(event.nativeEvent.layout.width - 20)}>
       <TopNav
         title="Ventilador N98"
-        connected={0 < readyState && readyState < 3}
+        connected={readyState > 0 && readyState < 3}
       />
       <View style={DeviceScreenStyle.summaryStyles.container}>
         {parametersArray.map((param) => (
           <View key={param.key}>
-            <Text style={StyleSheet.flatten([DeviceScreenStyle.summaryStyles.title, param.color])}>{param.title}</Text>
-            <Text style={DeviceScreenStyle.summaryStyles.data}>{graphValues[param.key].length > 0 && graphValues[param.key][graphValues[param.key].length - 1].y}</Text>
+            <Text
+              style={StyleSheet.flatten([
+                DeviceScreenStyle.summaryStyles.title,
+                param.color,
+              ])}>
+              {param.title}
+            </Text>
+            <Text style={DeviceScreenStyle.summaryStyles.data}>
+              {graphValues[param.key].length > 0 &&
+                graphValues[param.key][graphValues[param.key].length - 1].y}
+            </Text>
           </View>
         ))}
       </View>
-      <ScrollView style={DeviceScreenStyle.scrollerStyles.container} contentContainerStyle={DeviceScreenStyle.scrollerStyles.contentContainer}>
+      <ScrollView
+        style={DeviceScreenStyle.scrollerStyles.container}
+        contentContainerStyle={DeviceScreenStyle.scrollerStyles.contentContainer}>
         {parametersArray.map((param) => (
-          <VictoryChart key={param.key} height={GRAPH_HEIGHT}>
-            {graphValues[param.key].length > 1 && <VictoryArea style={{ data: { stroke: param.color.color, strokeWidth: 3, fillOpacity: 0 } }} data={graphValues[param.key]} />}
+          <VictoryChart key={param.key} height={graphHeight} width={graphWidth}>
+            {graphValues[param.key].length > 1 && (
+              <VictoryArea
+                style={{
+                  data: { stroke: param.color.color, strokeWidth: 3, fillOpacity: 0 },
+                }}
+                data={graphValues[param.key]}
+              />
+            )}
             <VictoryAxis dependentAxis />
           </VictoryChart>
         ))}
