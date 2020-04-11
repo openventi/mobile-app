@@ -7,6 +7,7 @@ import { throttle } from 'lodash';
 import DeviceScreenStyle from './Styles/DeviceScreenStyle';
 import { useFocusEffect } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
+import BottomNav from '../components/BottomNav';
 
 const MAX_ARRAY_SIZE = 25;
 
@@ -100,9 +101,6 @@ export default function DeviceScreen({ navigation }) {
       style={DeviceScreenStyle.styles.container}
       onLayout={(event) => setGraphWidth(event.nativeEvent.layout.width - 20)}>
       <TopNav
-        toggleDrawer={() => {
-          navigation.toggleDrawer();
-        }}
         title="Ventilador N98"
         connected={readyState > 0 && readyState < 3}
       />
@@ -140,6 +138,11 @@ export default function DeviceScreen({ navigation }) {
           </VictoryChart>
         ))}
       </ScrollView>
+      <BottomNav
+        toggleDrawer={() => {
+          navigation.toggleDrawer();
+        }}
+      />
     </View>
   );
 }
