@@ -8,31 +8,13 @@ import { View, Text, StyleSheet } from 'react-native';
 const TopNav = ({ connected, toggleDrawer, title }) => {
 	return (
 		<LinearGradient colors={['#40918B', '#53AC4C']}>
-			<View style={styles.topNav}>
-				<View
-					style={{
-						flexDirection: 'row',
-						justifyContent: 'space-between',
-						width: '100%',
-					}}>
-					<TouchableOpacity
-						style={styles.iconButton}
-						onPress={() => {
-							toggleDrawer();
-						}}>
-						<FontAwesomeIcon icon={faBars} color="white" />
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.iconButton}>
-						<FontAwesomeIcon icon={faEllipsisV} color="white" />
-					</TouchableOpacity>
-				</View>
+			<View style={styles.topNav}>				
 				<View
 					style={{
 						flexDirection: 'row',
 						justifyContent: 'space-between',
 						paddingHorizontal: 5,
-						marginTop: 30,
-						paddingBottom: 10,
+						marginTop: 30,						
 					}}>
 					<Text
 						style={{
@@ -50,10 +32,10 @@ const TopNav = ({ connected, toggleDrawer, title }) => {
 };
 
 const styles = StyleSheet.create({
-	topNav: {
-		paddingTop: 30,
+	topNav: {		
+		marginTop: 5,
 		paddingHorizontal: 10,
-		paddingBottom: 20,
+		marginBottom: 47,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 	},
