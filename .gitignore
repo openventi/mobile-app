@@ -33,6 +33,12 @@ build/
 local.properties
 *.iml
 
+# Eclipse
+#
+.project
+.classpath
+.settings
+
 # BUCK
 buck-out/
 \.buckd/
