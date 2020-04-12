@@ -181,6 +181,28 @@ export default class PairScreen extends Component {
 		this.setState({fourthDigit: value, canSubmit: canSubmitCode, ventilatorCode: code});
 	}
 
+	HandleBackSpaceSecondDigit = ({ nativeEvent: { key: keyValue } }) => {
+		if (keyValue === 'Backspace' && this.state.secondDigit == "")
+		{
+			this.refs.FirstDigit.focus();
+		}
+  	};
+
+	HandleBackSpaceThirdDigit = ({ nativeEvent: { key: keyValue } }) => {
+		if (keyValue === 'Backspace' && this.state.thirdDigit == "")
+		{
+			this.refs.SecondDigit.focus();
+		}
+  	};
+
+	HandleBackSpaceFourthDigit = ({ nativeEvent: { key: keyValue } }) => {
+		if (keyValue === 'Backspace' && this.state.fourthDigit == "")
+		{
+			this.refs.ThirdDigit.focus();
+		}
+  	};
+
+
 	render() {
 		const scaleDot1 = this.scaleValue1.interpolate({
     			inputRange: [0, 0.5, 1],
@@ -259,12 +281,7 @@ export default class PairScreen extends Component {
 							maxLength={1}
 							ref='SecondDigit'
 							editable={ this.state.loading ? false : true }
-							onKeyPress={({ nativeEvent }) => {
-								if (nativeEvent.key === 'Backspace' && this.state.secondDigit == "")
-								{
-									this.refs.FirstDigit.focus();
-								}
-							}}
+							onKeyPress={ this.HandleBackSpaceSecondDigit } 
 						/>
 						<TextInput
 							style={[
@@ -280,12 +297,7 @@ export default class PairScreen extends Component {
 							maxLength={1}
 							ref='ThirdDigit'
 							editable={ this.state.loading ? false : true }
-							onKeyPress={({ nativeEvent }) => {
-								if (nativeEvent.key === 'Backspace' && this.state.thirdDigit == "")
-								{
-									this.refs.SecondDigit.focus();
-								}
-							}}
+							onKeyPress={ this.HandleBackSpaceThirdDigit } 
 						/>
 						<TextInput
 							style={[
@@ -301,12 +313,7 @@ export default class PairScreen extends Component {
 							maxLength={1}
 							ref='FourthDigit'
 							editable={ this.state.loading ? false : true }
-							onKeyPress={({ nativeEvent }) => {
-								if (nativeEvent.key === 'Backspace' && this.state.fourthDigit == "")
-								{
-									this.refs.ThirdDigit.focus();
-								}
-							}}
+							onKeyPress={ this.HandleBackSpaceFourthDigit } 
 						/>
 					</View>
 					<View style={styles.buttonContainer}>
