@@ -137,6 +137,24 @@ export default class PairScreen extends Component {
     }
   }
 
+  HandleBackSpaceSecondDigit = ({ nativeEvent: { key: keyValue } }) => {
+    if (keyValue === 'Backspace' && this.state.secondDigit == "") {
+      this.FirstDigit.focus();
+    }
+  };
+
+  HandleBackSpaceThirdDigit = ({ nativeEvent: { key: keyValue } }) => {
+    if (keyValue === 'Backspace' && this.state.thirdDigit == "") {
+      this.SecondDigit.focus();
+    }
+  };
+
+  HandleBackSpaceFourthDigit = ({ nativeEvent: { key: keyValue } }) => {
+    if (keyValue === 'Backspace' && this.state.fourthDigit == "") {
+      this.ThirdDigit.focus();
+    }
+  };
+
   render() {
     const scaleDot1 = this.scaleValue1.interpolate({
       inputRange: [0, 0.5, 1],
@@ -190,6 +208,7 @@ export default class PairScreen extends Component {
                 keyboardType="numeric"
                 maxLength={1}
                 ref={(c) => (this.FirstDigit = c)}
+                onFocus= {() => this.setState({firstDigit : ''})}
                 value={this.state.firstDigit}
                 editable={this.state.loading ? false : true}
               />
@@ -205,8 +224,10 @@ export default class PairScreen extends Component {
                 keyboardType="numeric"
                 maxLength={1}
                 ref={(c) => (this.SecondDigit = c)}
+                onFocus= {() => this.setState({secondDigit : ''})}
                 value={this.state.secondDigit}
                 editable={this.state.loading ? false : true}
+                onKeyPress={this.HandleBackSpaceSecondDigit}
               />
               <TextInput
                 style={
@@ -220,8 +241,10 @@ export default class PairScreen extends Component {
                 keyboardType="numeric"
                 maxLength={1}
                 ref={(c) => (this.ThirdDigit = c)}
+                onFocus= {() => this.setState({thirdDigit : ''})}
                 value={this.state.thirdDigit}
                 editable={this.state.loading ? false : true}
+                onKeyPress={this.HandleBackSpaceThirdDigit}
               />
               <TextInput
                 style={
@@ -235,8 +258,10 @@ export default class PairScreen extends Component {
                 keyboardType="numeric"
                 maxLength={1}
                 ref={(c) => (this.FourthDigit = c)}
+                onFocus= {() => this.setState({fourthDigit : ''})}
                 value={this.state.fourthDigit}
                 editable={this.state.loading ? false : true}
+                onKeyPress={this.HandleBackSpaceFourthDigit}
               />
             </View>
             <View style={styles.buttonContainer}>
