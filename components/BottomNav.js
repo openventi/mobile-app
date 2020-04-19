@@ -4,18 +4,29 @@ import { faBars, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { View, StyleSheet, Animated } from 'react-native';
 import LogoSVG from '../components/LogoSVG';
+import { SCREENS } from '../constants';
 
-const BottomNav = ({ toggleDrawer }) => {
+const BottomNav = ({ toggleDrawer, goToScreen, selectedItem }) => {
     return (
         <View>
             <View style={styles.buttonBar}>
 
-                <TouchableOpacity style={styles.divSetting} underlayColor="white">
+                <TouchableOpacity style={[
+                      styles.divSetting,
+                      selectedItem == "Parameters"? styles.greenButton : styles.grayButton
+		  ]} underlayColor="white"
+                    onPress={() => {
+                        goToScreen(SCREENS.parameters);
+                    }}
+                >
                     <LogoSVG name='settings' width="24" height="18.3" />
                     <Animated.View style={styles.bgFill} />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.divAlarm} underlayColor="#16AB1F">
+                <TouchableOpacity style={[
+                      styles.divAlarm,
+                      selectedItem == "Alarms"? styles.greenButton : styles.grayButton
+                    ]} underlayColor="#16AB1F">
                     <LogoSVG name='alarm' width="24" height="18.3" />
                 </TouchableOpacity>
 
@@ -64,7 +75,6 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     divSetting: {
-        backgroundColor: '#192327',
         borderTopLeftRadius: 28,
         borderBottomLeftRadius: 28,
         marginRight: .5,
@@ -75,7 +85,6 @@ const styles = StyleSheet.create({
     },
 
     divAlarm: {
-        backgroundColor: '#192327',
         borderTopRightRadius: 28,
         borderBottomRightRadius: 28,
         marginLeft: .5,
@@ -83,6 +92,12 @@ const styles = StyleSheet.create({
         height: 56,
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    grayButton : {
+        backgroundColor: '#192327',
+    },
+    greenButton : {
+        backgroundColor: '#16AB1F',
     },
     bgFill: {
         backgroundColor: '#16AB1F'
