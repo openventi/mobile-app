@@ -8,6 +8,7 @@ import DeviceScreenStyle from './Styles/DeviceScreenStyle';
 import { useFocusEffect } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 import BottomNav from '../components/BottomNav';
+import { SCREENS } from '../constants';
 
 const GRAPH_HEIGHT = 200;
 const GRAPH_MIN_NUM_POINTS = 10;
@@ -151,7 +152,7 @@ export default function DeviceScreen({ navigation }) {
           </VictoryChart>
         ))}
       </ScrollView>
-      <BottomNav toggleDrawer={() => navigation.toggleDrawer()} />
+      <BottomNav toggleDrawer={() => navigation.toggleDrawer()} goToScreen={navigation.navigate} />
     </View>
   );
 }
