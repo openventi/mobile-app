@@ -67,4 +67,27 @@ export default StyleSheet.create({
 		borderColor: '#28CAAD',
 		color: '#16AB1F',
 	},
+	buttons_container: {
+		flexDirection: 'row',
+		justifyContent: 'space-evenly',
+		paddingTop: 20,
+		width: '100%',
+	},
+	button: {
+		height:48,
+		borderRadius: 10,
+		padding: 10,
+		paddingRight: 20,
+		paddingLeft: 20,
+	},
+	button_text: {
+		fontSize:19,
+		color: '#FFFFFF',
+	},
+	cancel_button: {
+		backgroundColor: '#545454',
+	},
+	save_button: {
+		backgroundColor: '#16AB1F',
+	},
 });
