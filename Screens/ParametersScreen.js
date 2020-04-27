@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Slider from '@react-native-community/slider';
 import styles from '../Screens/Styles/ParametersScreenStyle';
 import BottomNav from '../components/BottomNav';
@@ -16,6 +16,9 @@ export default class PairScreen extends Component {
 	rr: this.props.rr,
 	focused_parameter: "",
     };
+
+    this.HandleCancelClick = this.HandleCancelClick.bind(this);
+    this.SaveParameters = this.SaveParameters.bind(this);
   }
   HandleSlideValueChange(slider, value) {
 	var state = {};
@@ -33,13 +36,22 @@ export default class PairScreen extends Component {
 	this.setState({"focused_parameter": ""});
   }
 
+  HandleCancelClick() {
+	this.props.navigation.navigate(SCREENS.monitor)
+  }
+
+  SaveParameters() {
+	console.log("save parameters");
+	this.props.navigation.navigate(SCREENS.monitor)
+  }
+
   render() {
     return (
         <View style={styles.container}>
 		<View style={styles.params_container}>
 			<Text style={styles.params_header}>Ajustar Parámetros</Text>
 			<View style={styles.param_container}>
-				<Text style={styles.param_name}>Volumen</Text>
+				<Text style={styles.param_name}>Tidal Volume</Text>
 				<View style={styles.slider_container}>
 					<Slider
 						style={styles.param_slider}
@@ -141,6 +153,14 @@ export default class PairScreen extends Component {
 						this.state.focused_parameter == "rr" ? styles.param_input_focused : null
 					]}>{this.state.rr + ""}</Text>
 				</View>
+			</View>
+			<View style={styles.buttons_container}>
+				<TouchableOpacity style={[styles.button, styles.cancel_button]} onPress={this.HandleCancelClick}>
+					<Text style={styles.button_text}>CANCELAR</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={[styles.button, styles.save_button]} onPress={this.SaveParameters}>
+					<Text style={styles.button_text}>GUARDAR</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
       		<BottomNav toggleDrawer={() => this.props.navigation.toggleDrawer()} goToScreen={this.props.navigation.navigate} selectedItem="Parameters" />
