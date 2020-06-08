@@ -14,6 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-native-fontawesome": "^0.2.3",
     "@react-native-community/masked-view": "^0.1.7",
+    "@react-native-community/slider": "^2.0.9",
     "@react-navigation/drawer": "^5.4.0",
     "@react-navigation/native": "^5.1.4",
     "lodash": "^4.17.15",
